@@ -6,6 +6,7 @@ var answerList = [];    //letters user has guessed
 var answered = document.getElementById("lettersGuessed");   //display letters user has guessed
 var hidden = document.getElementById("hidden"); //hidden word displayed as a series of _
 var i = 15; //number of guesses remaining
+var winFlag = false;
 
 win.textContent = winCount;
 
@@ -18,7 +19,9 @@ function generateWord() {
 
 function play() {
     generateWord();
-    if(i > 0){
+    //if(i > 0){
+        
+        
         //split word and store in it in a new array
         var splitWord = word.split("");
         console.log("splitWord: ", splitWord);
@@ -31,13 +34,13 @@ function play() {
         //display the _ on the DOM
         hidden.innerHTML = " " + hiddenWord.join(" ");
 
-
-
-    }
-    else{
-        alert("You lose. Try again.");
-        reset();
-    }
+        //return splitWord;
+        compare(splitWord, hiddenWord);
+    // }
+    // else{
+    //     alert("You lose. Try again.");
+    //     reset();
+    // }
 }
 
 function counters() {
@@ -47,10 +50,13 @@ function counters() {
     answered.textContent = answerList;
 }
 
-function compare() {
+function compare(splitWord, hiddenWord) {
     document.onkeyup = function(event) {
-        var key = event.key;
+        if(i > 0){
+            
+            var key = event.key;
         var keyCode = event.keyCode;
+        console.log("key: ", key);
 
         //Only allows user to use a - z
         if(keyCode >= 65 && keyCode <= 90){
@@ -58,33 +64,76 @@ function compare() {
             answered.textContent = answerList;
             i--;
             counters();
-
+            
             // add a function to check if key is present in split word
-            //use https://github.com/Rubyrgill/Word-Guess-Game/blob/master/assets/javascript/game.js as a guide
+            
+            //Making a flag to check for a match
+            var inWord = false;
+            splitWord.forEach(function(element, index) {
+                if(splitWord[index] === key){
+                    inWord = true;                    
+                }
+            });
 
+            if(inWord){
+                splitWord.forEach(function(element,index){
+                    if(splitWord[index] === key){
+                        hiddenWord[index] = key;
+                        console.log("hiddenWord: ", hiddenWord);
+                        hidden.innerHTML = " " + hiddenWord.join(" ");
+                    }
+                });
+            }
+
+           
 
             //If user gets all of the letters display alert that they win
             //for(var k = 0; k < word.length; k++){
             if(hiddenWord.indexOf("_") === -1){
-                alert("You Win!");
+                winFlag = true;
                 winCount++;
-                reset();
+                result();
             }
             //}
 
             counters();
 
         }
-
     }
+    else{
+        winFlag = false;
+        result();
+    }
+    }
+    
+}
+
+function result(){
+    if(winFlag){
+        alert("You Win!");
+    }
+    
+    if(i === 0){
+        if(!winFlag){
+            alert("Game Over! Press any key to try again.");       
+        }
+    }
+    console.log("Now go to reset!");
+    reset();
 }
 
 function reset(){
-    if(i === 0){
-        alert("Game Over!");
-        loseCount = 0;
-        i = 15;
-        answerList = [];
+    winFlag = false;
+    loseCount = 0;
+    i = 15;
+    answerList = [];
+    answered.textContent = answerList;
+    play();
+
+    document.onkeyup = function(event) {
+        if(event.keyCode == 13){
+            play();
+        }
     }
 }
 
