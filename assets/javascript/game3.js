@@ -19,28 +19,22 @@ function generateWord() {
 
 function play() {
     generateWord();
-    //if(i > 0){
-        
-        
-        //split word and store in it in a new array
-        var splitWord = word.split("");
-        console.log("splitWord: ", splitWord);
-        var hiddenWord = [];
 
-        for(var j = 0; j < word.length; j++){
-           hiddenWord.push("_");
-        }
+    //split word and store in it in a new array
+    var splitWord = word.split("");
+    console.log("splitWord: ", splitWord);
+    var hiddenWord = [];
 
-        //display the _ on the DOM
-        hidden.innerHTML = " " + hiddenWord.join(" ");
+    for (var j = 0; j < word.length; j++) {
+        hiddenWord.push("_");
+    }
 
-        //return splitWord;
-        compare(splitWord, hiddenWord);
-    // }
-    // else{
-    //     alert("You lose. Try again.");
-    //     reset();
-    // }
+    //display the _ on the DOM
+    hidden.innerHTML = " " + hiddenWord.join(" ");
+
+    //return splitWord;
+    compare(splitWord, hiddenWord);
+
 }
 
 function counters() {
@@ -51,90 +45,79 @@ function counters() {
 }
 
 function compare(splitWord, hiddenWord) {
-    document.onkeyup = function(event) {
-        if(i > 0){
-            
+    document.onkeyup = function (event) {
+        if (i > 0) {
+
             var key = event.key;
-        var keyCode = event.keyCode;
-        console.log("key: ", key);
+            var keyCode = event.keyCode;
+            console.log("key: ", key);
 
-        //Only allows user to use a - z
-        if(keyCode >= 65 && keyCode <= 90){
-            answerList.push(key);
-            answered.textContent = answerList;
-            i--;
-            counters();
-            
-            // add a function to check if key is present in split word
-            
-            //Making a flag to check for a match
-            var inWord = false;
-            splitWord.forEach(function(element, index) {
-                if(splitWord[index] === key){
-                    inWord = true;                    
-                }
-            });
+            //Only allows user to use a - z
+            if (keyCode >= 65 && keyCode <= 90) {
+                answerList.push(key);
+                answered.textContent = answerList;
+                i--;
+                counters();
 
-            if(inWord){
-                splitWord.forEach(function(element,index){
-                    if(splitWord[index] === key){
-                        hiddenWord[index] = key;
-                        console.log("hiddenWord: ", hiddenWord);
-                        hidden.innerHTML = " " + hiddenWord.join(" ");
+                //Making a flag to check for a match
+                var inWord = false;
+                splitWord.forEach(function (element, index) {
+                    if (splitWord[index] === key) {
+                        inWord = true;
                     }
                 });
+
+                // add a function to check if key is present in split word
+                if (inWord) {
+                    splitWord.forEach(function (element, index) {
+                        if (splitWord[index] === key) {
+                            hiddenWord[index] = key;
+                            console.log("hiddenWord: ", hiddenWord);
+                            hidden.innerHTML = " " + hiddenWord.join(" ");
+                        }
+                    });
+                }
+
+                if (hiddenWord.indexOf("_") === -1) {
+                    winFlag = true;
+                    winCount++;
+                    result();
+                }
+
+                counters();
+
             }
-
-           
-
-            //If user gets all of the letters display alert that they win
-            //for(var k = 0; k < word.length; k++){
-            if(hiddenWord.indexOf("_") === -1){
-                winFlag = true;
-                winCount++;
-                result();
-            }
-            //}
-
-            counters();
-
+        }
+        else {
+            winFlag = false;
+            result();
         }
     }
-    else{
-        winFlag = false;
-        result();
-    }
-    }
-    
+
 }
 
-function result(){
-    if(winFlag){
-        alert("You Win!");
+function result() {
+    if (winFlag) {
+        alert("You Win! Press any letter key to play again.");
     }
-    
-    if(i === 0){
-        if(!winFlag){
-            alert("Game Over! Press any key to try again.");       
+
+    if (i === 0) {
+        if (!winFlag) {
+            alert("Game Over! Press any letter key to try again.");
         }
     }
     console.log("Now go to reset!");
     reset();
 }
 
-function reset(){
+function reset() {
+    console.log("I've been reset!");
     winFlag = false;
     loseCount = 0;
     i = 15;
     answerList = [];
     answered.textContent = answerList;
     play();
-
-    document.onkeyup = function(event) {
-        if(event.keyCode == 13){
-            play();
-        }
-    }
 }
 
 
