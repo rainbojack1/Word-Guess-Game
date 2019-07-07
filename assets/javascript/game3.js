@@ -79,9 +79,15 @@ function compare(splitWord, hiddenWord) {
                 }
 
                 if (hiddenWord.indexOf("___") === -1) {
+                    
                     winFlag = true;
                     winCount++;
-                    result();
+                   
+                    setTimeout(function(){
+                        result();
+                        counters();
+                    }, 1000);
+
                 }
 
                 counters();
@@ -118,8 +124,7 @@ function reset() {
     answerList = [];
     answered.textContent = answerList;
     play();
+    counters();
 }
 
-
-//generateWord();
 play();
