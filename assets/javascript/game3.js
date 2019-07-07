@@ -54,10 +54,12 @@ function compare(splitWord, hiddenWord) {
 
             //Only allows user to use a - z
             if (keyCode >= 65 && keyCode <= 90) {
-                answerList.push(key);
-                answered.textContent = answerList;
-                i--;
-                counters();
+                if (answerList.indexOf(key) === -1) {
+                    answerList.push(key);
+                    answered.textContent = answerList;
+                    i--;
+                    counters();
+                }
 
                 //Making a flag to check for a match
                 var inWord = false;
@@ -79,12 +81,12 @@ function compare(splitWord, hiddenWord) {
                 }
 
                 if (hiddenWord.indexOf("___") === -1) {
-                    
+
                     winFlag = true;
                     winCount++;
                     document.getElementById("gif").style.display = 'block';
 
-                    setTimeout(function(){
+                    setTimeout(function () {
                         result();
                         counters();
                     }, 1000 * 2);
@@ -105,7 +107,7 @@ function compare(splitWord, hiddenWord) {
 
 function result() {
     if (winFlag) {
-        alert("You Win! Press any letter key to play again.");        
+        alert("You Win! Press any letter key to play again.");
     }
 
     if (i === 0) {
