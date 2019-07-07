@@ -34,3 +34,11 @@ header h1{
     font-size: 24px;
     letter-spacing: 0.5%;
 }
+
+#gif{
+    display: none;
+}
+
+iframe{
+    height: 400px;
+}

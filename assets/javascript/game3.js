@@ -82,11 +82,12 @@ function compare(splitWord, hiddenWord) {
                     
                     winFlag = true;
                     winCount++;
-                   
+                    document.getElementById("gif").style.display = 'block';
+
                     setTimeout(function(){
                         result();
                         counters();
-                    }, 1000);
+                    }, 1000 * 2);
 
                 }
 
@@ -104,7 +105,7 @@ function compare(splitWord, hiddenWord) {
 
 function result() {
     if (winFlag) {
-        alert("You Win! Press any letter key to play again.");
+        alert("You Win! Press any letter key to play again.");        
     }
 
     if (i === 0) {
@@ -123,6 +124,7 @@ function reset() {
     i = 15;
     answerList = [];
     answered.textContent = answerList;
+    document.getElementById("gif").style.display = 'none';
     play();
     counters();
 }
