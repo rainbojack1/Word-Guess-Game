@@ -78,7 +78,7 @@ function compare(splitWord, hiddenWord) {
                     });
                 }
 
-                if (hiddenWord.indexOf("_") === -1) {
+                if (hiddenWord.indexOf("___") === -1) {
                     winFlag = true;
                     winCount++;
                     result();

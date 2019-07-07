@@ -1,0 +1,35 @@
+body{
+    background: url(../images/chinese_red_stage.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+header{
+    margin-bottom: 20px;
+    
+}
+
+header h1{
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    font-size: 3.5rem;
+}
+
+.container{
+    margin-top: 100px;
+}
+
+.justify-content-center, .counters{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#game-board{
+    margin: auto;
+    text-align: center;
+}
+
+#hidden{
+    font-size: 20px;
+    letter-spacing: 0.5%;
+}
