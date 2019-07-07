@@ -26,7 +26,7 @@ function play() {
     var hiddenWord = [];
 
     for (var j = 0; j < word.length; j++) {
-        hiddenWord.push("_");
+        hiddenWord.push("___");
     }
 
     //display the _ on the DOM
